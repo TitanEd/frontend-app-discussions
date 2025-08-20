@@ -38,7 +38,7 @@ const DiscussionsRestrictionBanner = lazy(() => import('./DiscussionsRestriction
 const DiscussionContent = lazy(() => import('./DiscussionContent'));
 const DiscussionSidebar = lazy(() => import('./DiscussionSidebar'));
 
-const DiscussionsHome = () => {
+const CustomDiscussionsHome = () => {
   const location = useLocation();
   const postActionBarRef = useRef(null);
   const postEditorVisible = useSelector(selectPostEditorVisible);
@@ -80,18 +80,19 @@ const DiscussionsHome = () => {
   }));
 
   return (
-    <PluginSlot
-      id="discussions_home_plugin_slot"
-      pluginProps={{
-        
-      }}
-    >
     <Suspense fallback={(<Spinner />)}>
       <DiscussionContext.Provider value={discussionContextValue}>
-        {!enableInContextSidebar && (<Header courseOrg={org} courseNumber={courseNumber} courseTitle={courseTitle} />)}
-        <main className="container-fluid d-flex flex-column p-0 w-100 font-size" id="main" tabIndex="-1">
+        {/* {!enableInContextSidebar && (<Header courseOrg={org} courseNumber={courseNumber} courseTitle={courseTitle} />)} */}
+        <PluginSlot
+          id="course_header_plugin_slot"
+          pluginProps={{
+            courseTitle,
+          }}
+        />
+        <main className="container-xl container-fluid d-flex flex-column w-100 font-size" id="main" tabIndex="-1">
           {!enableInContextSidebar && <CourseTabsNavigation />}
-          {(isEnrolled || !isUserLearner) && (
+          <div className="discussions-styles">
+            {(isEnrolled || !isUserLearner) && (
             <div
               className={classNames('header-action-bar bg-white position-sticky', {
                 'shadow-none border-light-300 border-bottom': enableInContextSidebar,
@@ -107,8 +108,8 @@ const DiscussionsHome = () => {
               </div>
               <DiscussionsRestrictionBanner />
             </div>
-          )}
-          {provider === DiscussionProvider.LEGACY && (
+            )}
+            {provider === DiscussionProvider.LEGACY && (
             <Suspense fallback={(<Spinner />)}>
               <Routes>
                 {[
@@ -127,9 +128,9 @@ const DiscussionsHome = () => {
                 ))}
               </Routes>
             </Suspense>
-          )}
-          {isCourseStatusValid(courseStatus) && (
-            !isEnrolled && isUserLearner ? (
+            )}
+            {isCourseStatusValid(courseStatus) && (
+              !isEnrolled && isUserLearner ? (
               <Suspense fallback={(<Spinner />)}>
                 <Routes>
                   {ALL_ROUTES.map((route) => (
@@ -142,7 +143,7 @@ const DiscussionsHome = () => {
                 </Routes>
               </Suspense>
             ) : (
-              <div className="d-flex flex-row position-relative">
+              <div className="d-flex flex-row position-relative disc-side-bar">
                 <Suspense fallback={(<Spinner />)}>
                   <DiscussionSidebar displaySidebar={displaySidebar} postActionBarRef={postActionBarRef} />
                 </Suspense>
@@ -178,15 +179,15 @@ const DiscussionsHome = () => {
                   </Routes>
                 )}
               </div>
-            )
-          )}
-          {!enableInContextSidebar && isEnrolled && (<DiscussionsProductTour />)}
+              )
+            )}
+            {!enableInContextSidebar && isEnrolled && (<DiscussionsProductTour />)}
+          </div>
         </main>
-        {!enableInContextSidebar && <FooterSlot />}
+        {/* {!enableInContextSidebar && <FooterSlot />} */}
       </DiscussionContext.Provider>
     </Suspense>
-    </PluginSlot>
   );
 };
 
-export default React.memo(DiscussionsHome);
+export default React.memo(CustomDiscussionsHome);

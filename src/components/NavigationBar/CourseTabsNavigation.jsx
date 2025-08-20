@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { PluginSlot } from '@openedx/frontend-plugin-framework';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
 
@@ -15,6 +16,13 @@ const CourseTabsNavigation = () => {
   const tabs = useSelector(state => state.courseTabs.tabs);
 
   return (
+    <PluginSlot
+      id="course_tab_navigation_plugin_slot"
+      pluginProps={{
+        intl,
+        tabs,
+      }}
+    >
     <div id="courseTabsNavigation" className="course-tabs-navigation px-4 bg-white">
       {!!tabs.length && (
         <Tabs
@@ -33,6 +41,7 @@ const CourseTabsNavigation = () => {
         </Tabs>
       )}
     </div>
+    </PluginSlot>
   );
 };
 

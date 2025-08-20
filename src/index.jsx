@@ -16,6 +16,7 @@ import messages from './i18n';
 import store from './store';
 
 import './index.scss';
+import './styles/styles-overrides.scss';
 
 subscribe(APP_READY, () => {
   ReactDOM.render(
