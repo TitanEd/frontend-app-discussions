@@ -9,9 +9,12 @@ import CourseHeader from './src/components/Head/CourseHeader';
 import CustomCourseTabsNavigation from './src/components/NavigationBar/CustomCourseTabsNavigation';
 import CustomDiscussionsHome from './src/discussions/discussions-home/CustomDiscussionsHome';
 
-const config = {
-  ...process.env,
-  pluginSlots: {
+const getPluginSlots = () => {
+  if (typeof window !== 'undefined' && localStorage.getItem('oldUI') === 'true') {
+    return {};
+  }
+
+  return {
     course_header_plugin_slot: {
       plugins: [
         {
@@ -51,6 +54,14 @@ const config = {
         },
       ],
     },
+  };
+};
+
+// Load environment variables from .env file
+const config = {
+  ...process.env,
+  get pluginSlots() {
+    return getPluginSlots();
   },
 };
 
