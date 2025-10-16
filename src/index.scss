@@ -19,8 +19,12 @@ html,
 body,
 #main
 {
-  font-size: 14px ;
+  // font-size: 14px ;
   font-family: $font-family-sans-serif;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
 }
 
 html, body.new-ui {
@@ -41,18 +45,18 @@ html.new-ui {
 }
 
 
-.btn,
-.form-control,
-.dropdown-menu,
-.pgn__modal,
-.pgn__form-control-floating-label-content,
-.pgn__form-label {
-  font-size: 14px !important;
-}
+// .btn,
+// .form-control,
+// .dropdown-menu,
+// .pgn__modal,
+// .pgn__form-control-floating-label-content,
+// .pgn__form-label {
+//   font-size: 14px;
+// }
 
-.btn-md {
-  font-size: 16px !important;
-}
+// .btn-md {
+//   font-size: 16px;
+// }
 
 #post,
 #comment,
@@ -245,15 +249,15 @@ html.new-ui {
   margin-left: 17px;
 }
 
-header {
-  .logo {
-    margin-right: 1rem;
+// header {
+//   .logo {
+//     margin-right: 1rem;
 
-    img {
-      height: 1.75rem;
-    }
-  }
-}
+//     img {
+//       height: 1.75rem;
+//     }
+//   }
+// }
 
 #learner-posts-link {
   span[role=heading]:hover {

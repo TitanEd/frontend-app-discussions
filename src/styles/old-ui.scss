@@ -2,3 +2,27 @@
 @import "~@edx/brand/paragon/variables.scss";
 @import "~@openedx/paragon/scss/core/core.scss";
 @import "~@edx/brand/paragon/overrides.scss";
+
+.btn,
+.form-control,
+.dropdown-menu,
+.pgn__modal,
+.pgn__form-control-floating-label-content,
+.pgn__form-label {
+  font-size: 14px;
+}
+
+.btn-md {
+  font-size: 16px;
+}
+
+
+header {
+    .logo {
+      margin-right: 1rem;
+  
+      img {
+        height: 1.75rem;
+      }
+    }
+  }
