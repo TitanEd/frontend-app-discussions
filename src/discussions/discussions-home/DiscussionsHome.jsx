@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, {
   lazy, Suspense, useMemo, useRef,
 } from 'react';
@@ -14,6 +15,7 @@ import { LearningHeader as Header } from '@edx/frontend-component-header';
 import { Spinner } from '../../components';
 import selectCourseTabs from '../../components/NavigationBar/data/selectors';
 import { ALL_ROUTES, DiscussionProvider, Routes as ROUTES } from '../../data/constants';
+import { setUIPreference } from '../../services/uiPreferenceService';
 import DiscussionContext from '../common/context';
 import ContentUnavailable from '../content-unavailable/ContentUnavailable';
 import {
@@ -83,15 +85,39 @@ const DiscussionsHome = () => {
     <PluginSlot
       id="discussions_home_plugin_slot"
       pluginProps={{
-        
+
       }}
     >
-    <Suspense fallback={(<Spinner />)}>
-      <DiscussionContext.Provider value={discussionContextValue}>
-        {!enableInContextSidebar && (<Header courseOrg={org} courseNumber={courseNumber} courseTitle={courseTitle} />)}
-        <main className="container-fluid d-flex flex-column p-0 w-100 font-size" id="main" tabIndex="-1">
-          {!enableInContextSidebar && <CourseTabsNavigation />}
-          {(isEnrolled || !isUserLearner) && (
+      <Suspense fallback={(<Spinner />)}>
+        <DiscussionContext.Provider value={discussionContextValue}>
+          {!enableInContextSidebar && (
+          <div>
+            <Header courseOrg={org} courseNumber={courseNumber} courseTitle={courseTitle} />
+            <button
+              type="button"
+              className="ui-switch-button"
+              onClick={async () => {
+                try {
+                  console.log('Switching to new UI...');
+                  const success = await setUIPreference(true);
+                  if (success) {
+                    console.log('Successfully switched to new UI, reloading page...');
+                    window.location.reload();
+                  } else {
+                    console.error('Failed to switch to new UI');
+                  }
+                } catch (error) {
+                  console.error('Error switching to new UI:', error);
+                }
+              }}
+            >
+              Switch to New UI
+            </button>
+          </div>
+          )}
+          <main className="container-fluid d-flex flex-column p-0 w-100 font-size" id="main" tabIndex="-1">
+            {!enableInContextSidebar && <CourseTabsNavigation />}
+            {(isEnrolled || !isUserLearner) && (
             <div
               className={classNames('header-action-bar bg-white position-sticky', {
                 'shadow-none border-light-300 border-bottom': enableInContextSidebar,
@@ -107,8 +133,8 @@ const DiscussionsHome = () => {
               </div>
               <DiscussionsRestrictionBanner />
             </div>
-          )}
-          {provider === DiscussionProvider.LEGACY && (
+            )}
+            {provider === DiscussionProvider.LEGACY && (
             <Suspense fallback={(<Spinner />)}>
               <Routes>
                 {[
@@ -127,31 +153,31 @@ const DiscussionsHome = () => {
                 ))}
               </Routes>
             </Suspense>
-          )}
-          {isCourseStatusValid(courseStatus) && (
-            !isEnrolled && isUserLearner ? (
-              <Suspense fallback={(<Spinner />)}>
-                <Routes>
-                  {ALL_ROUTES.map((route) => (
-                    <Route
-                      key={route}
-                      path={route}
-                      element={(<ContentUnavailable subTitleMessage={messages.contentUnavailableSubTitle} />)}
-                    />
-                  ))}
-                </Routes>
-              </Suspense>
-            ) : (
-              <div className="d-flex flex-row position-relative">
+            )}
+            {isCourseStatusValid(courseStatus) && (
+              !isEnrolled && isUserLearner ? (
                 <Suspense fallback={(<Spinner />)}>
-                  <DiscussionSidebar displaySidebar={displaySidebar} postActionBarRef={postActionBarRef} />
+                  <Routes>
+                    {ALL_ROUTES.map((route) => (
+                      <Route
+                        key={route}
+                        path={route}
+                        element={(<ContentUnavailable subTitleMessage={messages.contentUnavailableSubTitle} />)}
+                      />
+                    ))}
+                  </Routes>
                 </Suspense>
-                {displayContentArea && (
+              ) : (
+                <div className="d-flex flex-row position-relative">
+                  <Suspense fallback={(<Spinner />)}>
+                    <DiscussionSidebar displaySidebar={displaySidebar} postActionBarRef={postActionBarRef} />
+                  </Suspense>
+                  {displayContentArea && (
                   <Suspense fallback={(<Spinner />)}>
                     <DiscussionContent />
                   </Suspense>
-                )}
-                {!displayContentArea && (
+                  )}
+                  {!displayContentArea && (
                   <Routes>
                     <>
                       {ROUTES.TOPICS.PATH.map(route => (
@@ -176,15 +202,15 @@ const DiscussionsHome = () => {
                       <Route path={ROUTES.LEARNERS.PATH} element={<EmptyLearners />} />
                     </>
                   </Routes>
-                )}
-              </div>
-            )
-          )}
-          {!enableInContextSidebar && isEnrolled && (<DiscussionsProductTour />)}
-        </main>
-        {!enableInContextSidebar && <FooterSlot />}
-      </DiscussionContext.Provider>
-    </Suspense>
+                  )}
+                </div>
+              )
+            )}
+            {!enableInContextSidebar && isEnrolled && (<DiscussionsProductTour />)}
+          </main>
+          {!enableInContextSidebar && <FooterSlot />}
+        </DiscussionContext.Provider>
+      </Suspense>
     </PluginSlot>
   );
 };

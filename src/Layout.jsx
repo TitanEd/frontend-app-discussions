@@ -73,8 +73,8 @@ const Layout = () => {
 
   const handleLanguageChange = () => {
     const { pathname } = location;
-    const cleanPath = pathname.replace('/learning', '');
-    window.location.href = `/learning${cleanPath}`;
+    const cleanPath = pathname.replace('/discussions', '');
+    window.location.href = `/discussions${cleanPath}`;
   };
 
   const [sidebarItems, setSidebarItems] = useState([
