@@ -256,3 +256,35 @@
 .text-primary-500 {
   color: var(--primary) !important;
 }
+
+.tox-button {
+  background-color: var(--primary) !important;
+  border-radius: 8px !important;
+}
+
+.tox-button--secondary {
+  background-color: transparent !important;
+  color: var(--primary) !important;
+  border: 1px solid var(--primary) !important;
+}
+
+.tox-button--icon {
+  background-color: transparent !important;
+  color: var(--primary) !important;
+  // border: 1px solid var(--primary) !important;
+
+  &:hover {
+    background-color: var(--primary) !important;
+    color: white !important;
+  }
+}
+
+// Fix TinyMCE dialog z-index to appear above sidebar
+.tox-dialog-wrap,
+.tox-tinymce-aux {
+  z-index: 1200 !important;
+}
+
+.tox-dialog {
+  z-index: 1201 !important;
+}
