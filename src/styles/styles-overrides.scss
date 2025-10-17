@@ -214,13 +214,13 @@
   }
 
   .nav-link.active {
-    background-color: #11047A !important;
+    background-color: var(--primary) !important;
   }
 }
 
 .btn-brand {
   border-radius: 8px !important;
-  background-color: #11047A !important;
+  background-color: var(--primary) !important;
 }
 
 .pgn__searchfield {
@@ -240,7 +240,19 @@
     min-width: 25rem !important;
   }
 
+  .btn-link {
+    color: var(--primary) !important;
+  }
+
   .bg-light-400 {
     background-color: #FFFFFF !important;
   }
+}
+
+.border-primary-500-2 {
+  border: 2px solid var(--primary) !important;
+}
+
+.text-primary-500 {
+  color: var(--primary) !important;
 }
