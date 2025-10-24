@@ -91,7 +91,7 @@ const CustomDiscussionsHome = () => {
         />
         <main className="container-xl container-fluid d-flex flex-column w-100 font-size" id="main" tabIndex="-1">
           {!enableInContextSidebar && <CourseTabsNavigation />}
-          <div className="discussions-styles">
+          <div className={`discussions-styles ${enableInContextSidebar ? 'custom-discussions-home-container-frame' : ''}`}>
             {(isEnrolled || !isUserLearner) && (
             <div
               className={classNames('header-action-bar bg-white position-sticky', {

@@ -354,6 +354,15 @@ const Layout = () => {
     }
   };
 
+  const enableInContextSidebar = Boolean(new URLSearchParams(location.search).get('inContextSidebar') !== null);
+
+  if (enableInContextSidebar) {
+    return (
+      <div className="frame-container-in-context">
+        <DiscussionsHome />
+      </div>
+    );
+  }
   return (
     <div className="app-container">
       {/* <p>This is header</p> */}

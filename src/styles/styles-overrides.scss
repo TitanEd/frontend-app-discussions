@@ -1,6 +1,6 @@
-#root {
-  background-color: #F4F7FF;
-}
+// #root {
+//   background-color: #F4F7FF;
+// }
 
 // Course Tabs Navigation Styles
 .course-tabs-navigation {
@@ -287,4 +287,36 @@
 
 .tox-dialog {
   z-index: 1201 !important;
+}
+
+.frame-container-in-context {
+  .course-header {
+    display: none !important;
+  }
+
+  .container-fluid {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .custom-discussions-home-container-frame {
+    background-color: var(--bg-surface) !important;
+    border: none !important;
+
+    .header-action-bar {
+      margin: 0 !important;
+    }
+
+    .navbar  {
+      padding: 0 1rem !important;
+    }
+
+    .disc-side-bar {
+      padding: 1rem !important;
+    }
+
+    .post-form {
+      margin: 0 !important;
+    }
+  }
 }
