@@ -22,6 +22,16 @@
   border-bottom: none;
   border-radius: 0.5rem;
   font-weight: 600;
+  color: var(--primary) !important;
+}
+
+.nav-underline-tabs .nav-link:hover {
+  color: var(--primary) !important;
+}
+
+.nav-underline-tabs .nav-link:focus {
+  color: var(--primary) !important;
+  border-bottom-color: transparent !important;
 }
 
 .nav-menu {
