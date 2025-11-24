@@ -60,7 +60,7 @@
     "timeago.js": "4.0.2",
     "tinymce": "5.10.7",
     "yup": "0.32.11",
-    "titaned-frontend-library": "^1.0.9"
+    "titaned-frontend-library": "^1.0.12"
   },
   "devDependencies": {
     "@edx/browserslist-config": "1.2.0",
