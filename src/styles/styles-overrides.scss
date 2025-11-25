@@ -330,3 +330,24 @@
     }
   }
 }
+
+.dropdown-menu-right-discussions {
+  font-size: 18px !important;
+  padding-top: 0.6rem !important;
+}
+
+.nav-underline-tabs {
+  .nav-link {
+    color: var(--primary) !important;
+  }
+}
+
+.nav-underline-tabs {
+  .nav-link {
+    &:hover,
+    &:focus,
+    &.active {
+      border-bottom-color: transparent !important;
+    }
+  }
+}
