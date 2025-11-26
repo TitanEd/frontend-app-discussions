@@ -42,6 +42,10 @@ html.old-ui {
 
 html.new-ui {
   overflow: hidden !important; /* Prevent outer scrollbar for new UI */
+
+  body {
+    font-family: Inter, sans-serif !important;
+  }
 }
 
 
