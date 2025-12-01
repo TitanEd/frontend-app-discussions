@@ -351,3 +351,15 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .custom-mobile-padding {
+    padding-left: 0 !important;
+  }
+  .disc-side-bar {
+    padding-left: 0 !important;
+  }
+  .pgn__searchfield {
+    width: 64% !important;
+  }
+}

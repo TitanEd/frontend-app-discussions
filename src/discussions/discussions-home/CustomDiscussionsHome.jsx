@@ -99,7 +99,7 @@ const CustomDiscussionsHome = () => {
               })}
               ref={postActionBarRef}
             >
-              <div className={classNames('d-flex flex-row justify-content-between navbar fixed-top', {
+              <div className={classNames('d-flex flex-row justify-content-between navbar fixed-top custom-mobile-padding', {
                 'pl-4 pr-2 py-0': enableInContextSidebar,
               })}
               >
