@@ -98,10 +98,8 @@ const DiscussionsHome = () => {
               className="ui-switch-button"
               onClick={async () => {
                 try {
-                  console.log('Switching to new UI...');
                   const success = await setUIPreference(true);
                   if (success) {
-                    console.log('Successfully switched to new UI, reloading page...');
                     window.location.reload();
                   } else {
                     console.error('Failed to switch to new UI');
