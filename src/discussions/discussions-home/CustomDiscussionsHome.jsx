@@ -9,7 +9,6 @@ import {
   matchPath, Route, Routes, useLocation, useMatch,
 } from 'react-router-dom';
 
-import { LearningHeader as Header } from '@edx/frontend-component-header';
 
 import { Spinner } from '../../components';
 import selectCourseTabs from '../../components/NavigationBar/data/selectors';
@@ -28,7 +27,6 @@ import { selectPostEditorVisible } from '../posts/data/selectors';
 import { isCourseStatusValid } from '../utils';
 import useFeedbackWrapper from './FeedbackWrapper';
 
-const FooterSlot = lazy(() => import('@openedx/frontend-slot-footer'));
 const PostActionsBar = lazy(() => import('../posts/post-actions-bar/PostActionsBar'));
 const CourseTabsNavigation = lazy(() => import('../../components/NavigationBar/CourseTabsNavigation'));
 const LegacyBreadcrumbMenu = lazy(() => import('../navigation/breadcrumb-menu/LegacyBreadcrumbMenu'));
@@ -82,7 +80,6 @@ const CustomDiscussionsHome = () => {
   return (
     <Suspense fallback={(<Spinner />)}>
       <DiscussionContext.Provider value={discussionContextValue}>
-        {/* {!enableInContextSidebar && (<Header courseOrg={org} courseNumber={courseNumber} courseTitle={courseTitle} />)} */}
         <PluginSlot
           id="course_header_plugin_slot"
           pluginProps={{
@@ -184,7 +181,6 @@ const CustomDiscussionsHome = () => {
             {!enableInContextSidebar && isEnrolled && (<DiscussionsProductTour />)}
           </div>
         </main>
-        {/* {!enableInContextSidebar && <FooterSlot />} */}
       </DiscussionContext.Provider>
     </Suspense>
   );

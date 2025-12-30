@@ -1,13 +1,8 @@
-// #root {
-//   background-color: #F4F7FF;
-// }
-
 // Course Tabs Navigation Styles
 .course-tabs-navigation {
   background-color: #E6EDFF;
   font-weight: 400;
   border-radius: 4px;
-  // margin-left: 12px;
   margin-bottom: 1.5rem !important;
 
   .nav a {
@@ -39,13 +34,8 @@
   margin-left: -4px;
 }
 
-.course-header {
-  // margin-left: -15px; //uncomment based on view
-}
-
 /* Breadcrumb and Title styles */
 .ca-breadcrumb-bg {
-  // position: fixed;
   width: 100%;
   padding: 0.5rem 0 0 0;
 }
@@ -94,17 +84,9 @@
 
 /* Sidebar styles */
 .ca-sidebar {
-  // position: sticky;
-  // top: 17%;
   min-width: 220px;
   max-width: 260px;
-  // width: 240px;
-  // height: 100vh !important;
-  // max-height: 100vh !important;
-  // overflow-y: scroll !important;
-  // overflow-x: hidden;
   background: transparent;
-  // border-right: 1px solid #eee;
   z-index: 2;
   margin: 0;
   border-radius: 0 !important;
@@ -154,7 +136,6 @@
   appearance: none;
   padding-right: 30px;
   /* Space for the arrow */
-  // background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%236c757d%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 10px 10px;
@@ -186,7 +167,6 @@
 }
 
 .raised-card {
-  // margin-top: -85px; // weekly learning goal card
   border-radius: 12px;
 }
 
@@ -194,7 +174,6 @@
   background-color: #FFFFFF;
   border: 1px solid #E5E6E6;
   border-radius: 1rem;
-  // padding-left: 2rem;
   padding-bottom: 1rem;
   margin-bottom: 1rem;
 
@@ -234,7 +213,6 @@
 }
 
 .pgn__searchfield {
-  // border-radius: 8px;
   border: 1px solid #E0E0E0 !important;
 }
 
@@ -281,7 +259,6 @@
 .tox-button--icon {
   background-color: transparent !important;
   color: var(--primary) !important;
-  // border: 1px solid var(--primary) !important;
 
   &:hover {
     background-color: var(--primary) !important;
