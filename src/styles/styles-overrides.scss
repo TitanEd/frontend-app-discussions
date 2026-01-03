@@ -1,0 +1,342 @@
+// Course Tabs Navigation Styles
+.course-tabs-navigation {
+  background-color: #E6EDFF;
+  font-weight: 400;
+  border-radius: 4px;
+  margin-bottom: 1.5rem !important;
+
+  .nav a {
+    &:not(.active):hover {
+      border-radius: 0.5rem;
+    }
+  }
+}
+
+.nav-underline-tabs .nav-link.active {
+  background-color: #FFFFFF;
+  border-bottom: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  color: var(--primary) !important;
+}
+
+.nav-underline-tabs .nav-link:hover {
+  color: var(--primary) !important;
+}
+
+.nav-underline-tabs .nav-link:focus {
+  color: var(--primary) !important;
+  border-bottom-color: transparent !important;
+}
+
+.nav-menu {
+  padding: 0.5rem 0;
+  margin-left: -4px;
+}
+
+/* Breadcrumb and Title styles */
+.ca-breadcrumb-bg {
+  width: 100%;
+  padding: 0.5rem 0 0 0;
+}
+
+.ca-breadcrumb-container {
+  margin: 0 auto;
+  padding: 1rem 0rem !important;
+}
+
+.ca-breadcrumb {
+  color: #b0b7c3;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.ca-breadcrumb .ca-breadcrumb-icon {
+  opacity: 0.7;
+
+  .custom-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+  }
+}
+
+.ca-breadcrumb .ca-breadcrumb-divider {
+  margin: 0 8px;
+}
+
+.ca-breadcrumb .ca-breadcrumb-current {
+  color: #6b7280;
+}
+
+.ca-title {
+  font-weight: 600;
+  font-size: 20px;
+  color: #22223b;
+}
+
+/* Main layout styles */
+.ca-main-layout {
+  display: flex;
+  min-height: 100vh;
+  align-items: flex-start;
+}
+
+/* Sidebar styles */
+.ca-sidebar {
+  min-width: 220px;
+  max-width: 260px;
+  background: transparent;
+  z-index: 2;
+  margin: 0;
+  border-radius: 0 !important;
+  padding-bottom: 0 !important;
+  box-sizing: border-box;
+  margin-left: 16px;
+  margin-top: 16px;
+  border-radius: 16px;
+  position: sticky;
+  top: 32px;
+  align-self: flex-start;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: calc(100vh - 32px);
+  max-height: calc(100vh - 32px);
+
+}
+
+/* Main content styles */
+.ca-main-content {
+  flex: 1;
+  padding-top: 1rem;
+}
+
+/* Responsive styles for Course Navigation */
+.ca-mobile-nav {
+  display: none;
+  /* Hidden by default */
+  width: 100%;
+  padding: 16px;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.ca-mobile-nav-select {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: white;
+
+  /* Remove default arrow and add a custom one with spacing */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding-right: 30px;
+  /* Space for the arrow */
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 10px 10px;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+  .ca-sidebar {
+    display: none;
+    /* Hide the desktop sidebar */
+  }
+
+  .ca-mobile-nav {
+    display: block;
+    /* Show the mobile dropdown */
+  }
+
+  .ca-main-layout {
+    flex-direction: column;
+  }
+}
+
+.course-content-border {
+  border-radius: 8px;
+
+  .mb-2 {
+    border-radius: 8px;
+  }
+}
+
+.raised-card {
+  border-radius: 12px;
+}
+
+.discussions-styles {
+  background-color: #FFFFFF;
+  border: 1px solid #E5E6E6;
+  border-radius: 1rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+
+  .header-action-bar {
+    margin: 0rem 0.5rem;
+  }
+}
+
+.header-action-bar {
+  box-shadow: none;
+}
+
+.nav-button-group {
+
+  gap: 10px;
+
+  .nav-item {
+    a {
+      border: none !important;
+    }
+
+    .active {
+      a {
+        border-radius: 22.5px !important;
+      }
+    }
+  }
+
+  .nav-link.active {
+    background-color: var(--primary) !important;
+  }
+}
+
+.btn-brand {
+  border-radius: 8px !important;
+  background-color: var(--primary) !important;
+}
+
+.pgn__searchfield {
+  border: 1px solid #E0E0E0 !important;
+}
+
+.pgn__searchfield .pgn__searchfield-form {
+  width: 240px !important;
+}
+
+.disc-side-bar {
+  padding: 0 0 2rem 2rem;
+  top: 3px;
+
+  .sidebar-XL-width {
+    min-width: 25rem !important;
+  }
+
+  .btn-link {
+    color: var(--primary) !important;
+  }
+
+  .bg-light-400 {
+    background-color: #FFFFFF !important;
+  }
+}
+
+.border-primary-500-2 {
+  border: 2px solid var(--primary) !important;
+}
+
+.text-primary-500 {
+  color: var(--primary) !important;
+}
+
+.tox-button {
+  background-color: var(--primary) !important;
+  border-radius: 8px !important;
+}
+
+.tox-button--secondary {
+  background-color: transparent !important;
+  color: var(--primary) !important;
+  border: 1px solid var(--primary) !important;
+}
+
+.tox-button--icon {
+  background-color: transparent !important;
+  color: var(--primary) !important;
+
+  &:hover {
+    background-color: var(--primary) !important;
+    color: white !important;
+  }
+}
+
+// Fix TinyMCE dialog z-index to appear above sidebar
+.tox-dialog-wrap,
+.tox-tinymce-aux {
+  z-index: 1200 !important;
+}
+
+.tox-dialog {
+  z-index: 1201 !important;
+}
+
+.frame-container-in-context {
+  .course-header {
+    display: none !important;
+  }
+
+  .container-fluid {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .custom-discussions-home-container-frame {
+    background-color: var(--bg-surface) !important;
+    border: none !important;
+
+    .header-action-bar {
+      margin: 0 !important;
+    }
+
+    .navbar  {
+      padding: 0 1rem !important;
+    }
+
+    .disc-side-bar {
+      padding: 1rem !important;
+    }
+
+    .post-form {
+      margin: 0 !important;
+    }
+  }
+}
+
+.dropdown-menu-right-discussions {
+  font-size: 18px !important;
+  padding-top: 0.6rem !important;
+}
+
+.nav-underline-tabs {
+  .nav-link {
+    color: var(--primary) !important;
+  }
+}
+
+.nav-underline-tabs {
+  .nav-link {
+    &:hover,
+    &:focus,
+    &.active {
+      border-bottom-color: transparent !important;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .custom-mobile-padding {
+    padding-left: 0 !important;
+  }
+  .disc-side-bar {
+    padding-left: 0 !important;
+  }
+  .pgn__searchfield {
+    width: 64% !important;
+  }
+}

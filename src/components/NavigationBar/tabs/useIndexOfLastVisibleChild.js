@@ -1,4 +1,10 @@
-import { useLayoutEffect, useRef, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import { useWindowSize } from '@openedx/paragon';
 
@@ -34,44 +40,100 @@ export default function useIndexOfLastVisibleChild() {
   const containerElementRef = useRef(null);
   const overflowElementRef = useRef(null);
   const containingRectRef = useRef({});
+  const childrenCountRef = useRef(0);
   const [indexOfLastVisibleChild, setIndexOfLastVisibleChild] = useState(-1);
   const windowSize = useWindowSize();
 
-  useLayoutEffect(() => {
-    const containingRect = containerElementRef.current.getBoundingClientRect();
-
-    // No-op if the width is unchanged.
-    // (Assumes tabs themselves don't change count or width).
-    if (!containingRect.width === containingRectRef.current.width) {
+  const calculateVisibleIndex = useCallback(() => {
+    if (!containerElementRef.current) {
       return;
     }
-    // Update for future comparison
+
+    const containingRect = containerElementRef.current.getBoundingClientRect();
+    const currentChildrenCount = containerElementRef.current.children.length;
+
+    // Recalculate if width changed, children count changed, or on initial render
+    const widthChanged = containingRect.width !== containingRectRef.current.width;
+    const childrenCountChanged = currentChildrenCount !== childrenCountRef.current;
+    const isInitialRender = containingRectRef.current.width === undefined;
+
+    if (!widthChanged && !childrenCountChanged && !isInitialRender) {
+      return;
+    }
+
+    // Update refs for future comparison
     containingRectRef.current = containingRect;
+    childrenCountRef.current = currentChildrenCount;
 
-    // Get array of child nodes from NodeList form
-    const childNodesArr = Array.prototype.slice.call(containerElementRef.current.children);
-    const { nextIndexOfLastVisibleChild } = childNodesArr
-      // filter out the overflow element
-      .filter(childNode => childNode !== overflowElementRef.current)
-      // sum the widths to find the last visible element's index
-      .reduce((acc, childNode, index) => {
-        // use floor to prevent rounding errors
-        acc.sumWidth += Math.floor(childNode.getBoundingClientRect().width);
-        if (acc.sumWidth <= containingRect.width) {
-          acc.nextIndexOfLastVisibleChild = index;
-        }
-        return acc;
-      }, {
-        // Include the overflow element's width to begin with. Doing this means
-        // sometimes we'll show a dropdown with one item in it when it would fit,
-        // but allowing this case dramatically simplifies the calculations we need
-        // to do above.
-        sumWidth: overflowElementRef.current ? overflowElementRef.current.getBoundingClientRect().width : 0,
-        nextIndexOfLastVisibleChild: -1,
+    // Use requestAnimationFrame to ensure DOM is fully rendered before measuring
+    requestAnimationFrame(() => {
+      if (!containerElementRef.current) {
+        return;
+      }
+
+      // Get array of child nodes from NodeList form
+      const childNodesArr = Array.prototype.slice.call(containerElementRef.current.children);
+      const { nextIndexOfLastVisibleChild } = childNodesArr
+        // filter out the overflow element
+        .filter(childNode => childNode !== overflowElementRef.current)
+        // sum the widths to find the last visible element's index
+        .reduce((acc, childNode, index) => {
+          // use floor to prevent rounding errors
+          acc.sumWidth += Math.floor(childNode.getBoundingClientRect().width);
+          if (acc.sumWidth <= containingRect.width) {
+            acc.nextIndexOfLastVisibleChild = index;
+          }
+          return acc;
+        }, {
+          // Include the overflow element's width to begin with. Doing this means
+          // sometimes we'll show a dropdown with one item in it when it would fit,
+          // but allowing this case dramatically simplifies the calculations we need
+          // to do above.
+          sumWidth: overflowElementRef.current
+            ? Math.floor(overflowElementRef.current.getBoundingClientRect().width)
+            : 0,
+          nextIndexOfLastVisibleChild: -1,
+        });
+
+      setIndexOfLastVisibleChild(nextIndexOfLastVisibleChild);
+    });
+  }, []);
+
+  useLayoutEffect(() => {
+    calculateVisibleIndex();
+  }, [windowSize, calculateVisibleIndex]);
+
+  // Watch for changes in children count using MutationObserver
+  useEffect(() => {
+    if (!containerElementRef.current) {
+      return;
+    }
+
+    const observer = new MutationObserver(() => {
+      calculateVisibleIndex();
+    });
+
+    observer.observe(containerElementRef.current, {
+      childList: true,
+      subtree: false,
+    });
+
+    // Also use ResizeObserver to watch for container size changes
+    let resizeObserver;
+    if (window.ResizeObserver) {
+      resizeObserver = new ResizeObserver(() => {
+        calculateVisibleIndex();
       });
+      resizeObserver.observe(containerElementRef.current);
+    }
 
-    setIndexOfLastVisibleChild(nextIndexOfLastVisibleChild);
-  }, [windowSize, containerElementRef.current]);
+    return () => {
+      observer.disconnect();
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      }
+    };
+  }, [calculateVisibleIndex]);
 
   return [indexOfLastVisibleChild, containerElementRef, invisibleStyle, overflowElementRef];
 }

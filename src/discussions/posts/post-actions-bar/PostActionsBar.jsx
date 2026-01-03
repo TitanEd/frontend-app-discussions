@@ -38,7 +38,7 @@ const PostActionsBar = () => {
   }, []);
 
   return (
-    <div className={classNames('d-flex justify-content-end flex-grow-1', { 'py-1': !enableInContextSidebar })}>
+    <div className={classNames('d-flex justify-content-end flex-grow-1 search-style', { 'py-1': !enableInContextSidebar })}>
       {!enableInContextSidebar && (
         (enableInContext && ['topics', 'category'].includes(page))
           ? <IncontextSearch />
@@ -51,7 +51,7 @@ const PostActionsBar = () => {
       )}
       {loadingStatus === RequestStatus.SUCCESSFUL && isUserPrivilegedInPostingRestriction && (
         <>
-          {!enableInContextSidebar && <div className="border-right border-light-400 mx-3" />}
+          {!enableInContextSidebar && <div className="border-light-400 mx-3" />}
           <Button
             variant={enableInContextSidebar ? 'plain' : 'brand'}
             className={classNames(
