@@ -340,3 +340,24 @@
     width: 64% !important;
   }
 }
+
+.tox .tox-dialog__body-nav-item--active {
+  border-bottom: 2px solid var(--primary) !important;
+  color: var(--primary) !important;
+}
+
+.pgn__form-checkbox-input:checked {
+  background-color: transparent !important;
+}
+
+.tox .tox-checkbox__icons .tox-checkbox-icon__checked svg {
+  fill: var(--primary) !important;
+}
+
+.nav-pills .nav-link {
+  color: var(--primary) !important;
+}
+
+.nav-button-group .nav-link.active {
+  color: white !important;
+}
