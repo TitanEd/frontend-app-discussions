@@ -41,7 +41,7 @@ const Tabs = ({ children, className, ...attrs }) => {
           key="overflow"
         >
           <Dropdown className="h-100">
-            <Dropdown.Toggle variant="link" className="nav-link h-100" id="learn.course.tabs.navigation.overflow.menu">
+            <Dropdown.Toggle variant="link" className="nav-link h-100 dropdown-menu-right-discussions" id="learn.course.tabs.navigation.overflow.menu">
               <FormattedMessage
                 id="learn.course.tabs.navigation.overflow.menu"
                 description="The title of the overflow menu for course tabs"
