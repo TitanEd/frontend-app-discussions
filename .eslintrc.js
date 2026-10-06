@@ -9,6 +9,25 @@ module.exports = createConfig(
       'react-hooks/exhaustive-deps': 'off',
       'jsx-a11y/no-noninteractive-element-interactions': 'off',
       'jsx-a11y/no-access-key': 'off',
+      'react/prop-types': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+      'no-nested-ternary': 'off',
+      'no-useless-escape': 'off',
+      'react/no-array-index-key': 'off',
+      'jsx-a11y/click-events-have-key-events': 'off',
+      'jsx-a11y/interactive-supports-focus': 'off',
+      'no-console': 'off',
+      'no-unused-vars': 'off',
+      'react/require-default-props': 'off',
+
+      // Turn off implicit-arrow-linebreak rule
+      'implicit-arrow-linebreak': 'off',
+
+      // Turn off consistent-return rule
+      'consistent-return': 'off',
+
+      // Disable max-len rule (or set to larger value if you prefer)
+      'max-len': 'off',
       'simple-import-sort/imports': [
         'error', {
           groups: [

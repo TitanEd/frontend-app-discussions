@@ -1,3 +1,13 @@
+// Sumac imported Paragon SCSS here. Verawood ships Paragon as CSS, and these
+// entrypoints are not in this release. Tab colors below use Paragon CSS variables.
+// @import "~@edx/brand/paragon/fonts.scss";
+// @import "~@edx/brand/paragon/variables.scss";
+// @import "~@openedx/paragon/scss/core/core.scss";
+// @import "~@edx/brand/paragon/overrides.scss";
+
+// $fa-font-path: "~font-awesome/fonts";
+// @import "~font-awesome/scss/font-awesome";
+
 .course-tabs-navigation {
   border-bottom: solid 1px #eaeaea;
 

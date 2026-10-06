@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, {
   lazy, Suspense, useMemo, useRef,
 } from 'react';
@@ -13,8 +12,6 @@ import {
 import { Spinner } from '../../components';
 import selectCourseTabs from '../../components/NavigationBar/data/selectors';
 import { ALL_ROUTES, DiscussionProvider, Routes as ROUTES } from '../../data/constants';
-import HeaderSlot from '../../plugin-slots/HeaderSlot';
-import { setUIPreference } from '../../services/uiPreferenceService';
 import DiscussionContext from '../common/context';
 import ContentUnavailable from '../content-unavailable/ContentUnavailable';
 import {
@@ -29,8 +26,8 @@ import { selectPostEditorVisible } from '../posts/data/selectors';
 import { isCourseStatusValid } from '../utils';
 import useFeedbackWrapper from './FeedbackWrapper';
 
-const FooterSlot = lazy(() => import('@edx/frontend-component-footer').then(module => ({ default: module.FooterSlot })));
 const PostActionsBar = lazy(() => import('../posts/post-actions-bar/PostActionsBar'));
+const DiscussionsConfirmEmailBanner = lazy(() => import('./DiscussionsConfirmEmailBanner'));
 const CourseTabsNavigation = lazy(() => import('../../components/NavigationBar/CourseTabsNavigation'));
 const LegacyBreadcrumbMenu = lazy(() => import('../navigation/breadcrumb-menu/LegacyBreadcrumbMenu'));
 const NavigationBar = lazy(() => import('../navigation/navigation-bar/NavigationBar'));
@@ -38,9 +35,8 @@ const DiscussionsProductTour = lazy(() => import('../tours/DiscussionsProductTou
 const DiscussionsRestrictionBanner = lazy(() => import('./DiscussionsRestrictionBanner'));
 const DiscussionContent = lazy(() => import('./DiscussionContent'));
 const DiscussionSidebar = lazy(() => import('./DiscussionSidebar'));
-const DiscussionsConfirmEmailBanner = lazy(() => import('./DiscussionsConfirmEmailBanner'));
 
-const DiscussionsHome = () => {
+const CustomDiscussionsHome = () => {
   const location = useLocation();
   const postActionBarRef = useRef(null);
   const postEditorVisible = useSelector(selectPostEditorVisible);
@@ -83,40 +79,18 @@ const DiscussionsHome = () => {
   }));
 
   return (
-    <PluginSlot
-      id="discussions_home_plugin_slot"
-      pluginProps={{
-
-      }}
-    >
-      <Suspense fallback={(<Spinner />)}>
-        <DiscussionContext.Provider value={discussionContextValue}>
-          {!enableInContextSidebar && (
-          <div>
-            <DiscussionsConfirmEmailBanner />
-            <HeaderSlot courseOrg={org} courseNumber={courseNumber} courseTitle={courseTitle} />
-            <button
-              type="button"
-              className="ui-switch-button"
-              onClick={async () => {
-                try {
-                  const success = await setUIPreference(true);
-                  if (success) {
-                    window.location.reload();
-                  } else {
-                    console.error('Failed to switch to new UI');
-                  }
-                } catch (error) {
-                  console.error('Error switching to new UI:', error);
-                }
-              }}
-            >
-              Switch to New UI
-            </button>
-          </div>
-          )}
-          <main className="container-fluid d-flex flex-column p-0 w-100 font-size" id="main" tabIndex="-1">
-            {!enableInContextSidebar && <CourseTabsNavigation />}
+    <Suspense fallback={(<Spinner />)}>
+      <DiscussionContext.Provider value={discussionContextValue}>
+        {!enableInContextSidebar && <DiscussionsConfirmEmailBanner />}
+        <PluginSlot
+          id="course_header_plugin_slot"
+          pluginProps={{
+            courseTitle,
+          }}
+        />
+        <main className="container-xl container-fluid d-flex flex-column w-100 font-size" id="main" tabIndex="-1">
+          {!enableInContextSidebar && <CourseTabsNavigation />}
+          <div className={`discussions-styles ${enableInContextSidebar ? 'custom-discussions-home-container-frame' : ''}`}>
             {(isEnrolled || !isUserLearner) && (
             <div
               className={classNames('header-action-bar bg-white position-sticky', {
@@ -124,7 +98,7 @@ const DiscussionsHome = () => {
               })}
               ref={postActionBarRef}
             >
-              <div className={classNames('d-flex flex-row justify-content-between navbar fixed-top', {
+              <div className={classNames('d-flex flex-row justify-content-between navbar fixed-top custom-mobile-padding', {
                 'pl-4 pr-2 py-0': enableInContextSidebar,
               })}
               >
@@ -168,7 +142,7 @@ const DiscussionsHome = () => {
                   </Routes>
                 </Suspense>
               ) : (
-                <div className="d-flex flex-row position-relative">
+                <div className="d-flex flex-row position-relative disc-side-bar">
                   <Suspense fallback={(<Spinner />)}>
                     <DiscussionSidebar displaySidebar={displaySidebar} postActionBarRef={postActionBarRef} />
                   </Suspense>
@@ -207,12 +181,11 @@ const DiscussionsHome = () => {
               )
             )}
             {!enableInContextSidebar && isEnrolled && (<DiscussionsProductTour />)}
-          </main>
-          {!enableInContextSidebar && <FooterSlot />}
-        </DiscussionContext.Provider>
-      </Suspense>
-    </PluginSlot>
+          </div>
+        </main>
+      </DiscussionContext.Provider>
+    </Suspense>
   );
 };
 
-export default React.memo(DiscussionsHome);
+export default React.memo(CustomDiscussionsHome);
