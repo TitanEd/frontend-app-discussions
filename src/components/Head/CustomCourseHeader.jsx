@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
+
 import { LmsBook } from '@openedx/paragon/icons';
+
 import { defineMessages, useIntl } from '@edx/frontend-platform/i18n';
 
 import messages from '../../messages';

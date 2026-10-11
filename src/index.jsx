@@ -3,6 +3,7 @@ import 'regenerator-runtime/runtime';
 
 import React, { StrictMode } from 'react';
 
+import { PluginSlot } from '@openedx/frontend-plugin-framework';
 // eslint-disable-next-line import/no-unresolved
 import { createRoot } from 'react-dom/client';
 
@@ -11,7 +12,6 @@ import {
   subscribe,
 } from '@edx/frontend-platform';
 import { AppProvider, ErrorPage } from '@edx/frontend-platform/react';
-import { PluginSlot } from '@openedx/frontend-plugin-framework';
 
 import Head from './components/Head/Head';
 import { DiscussionsHome } from './discussions';

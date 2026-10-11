@@ -14,9 +14,9 @@ import { useIntl } from '@edx/frontend-platform/i18n';
 import { AppContext } from '@edx/frontend-platform/react';
 
 import CustomDiscussionsHome from './discussions/discussions-home/CustomDiscussionsHome';
-import { DiscussionsHome } from './discussions';
 import customGetUserMenuItems from './utils/customGetUserMenuItems';
 import getLearnerDashboardUrl from './utils/getLearnerDashboardUrl';
+import { DiscussionsHome } from './discussions';
 import messages from './messages';
 
 // Custom UI styles load after the stock Verawood styles (as in the previous
@@ -24,8 +24,6 @@ import messages from './messages';
 import('titaned-frontend-library/dist/index.css');
 import('./styles/styles-overrides.scss');
 import('./styles/custom-layout.scss');
-
-
 
 // Design tokens for the custom UI are scoped to this class
 // (tels-brand-openedx paragon/custom_discussions.scss).

@@ -9,9 +9,9 @@ import {
 } from 'react-router-dom';
 
 import { Spinner } from '../../components';
+import CustomCourseHeader from '../../components/Head/CustomCourseHeader';
 import selectCourseTabs from '../../components/NavigationBar/data/selectors';
 import { ALL_ROUTES, DiscussionProvider, Routes as ROUTES } from '../../data/constants';
-import CustomCourseHeader from '../../components/Head/CustomCourseHeader';
 import DiscussionContext from '../common/context';
 import ContentUnavailable from '../content-unavailable/ContentUnavailable';
 import {
