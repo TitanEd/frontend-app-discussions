@@ -42,7 +42,9 @@ const EmptyTopics = ({ openRestrictionDialogue }) => {
   let action;
   let actionText;
 
-  if (!isOnTabletorDesktop) {
+  // The learning MFE's discussions sidebar is narrower than the tablet
+  // breakpoint; still show the empty state (and Add a post) there.
+  if (!isOnTabletorDesktop && !enableInContextSidebar) {
     return null;
   }
 

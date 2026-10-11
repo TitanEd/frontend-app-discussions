@@ -1,72 +1,32 @@
-// Custom font-family override (must be before Paragon imports)
-// These override the default Paragon font variables
-// Verawood ships Paragon as CSS. The Sumac SCSS core entrypoints are not in this release.
-// @import "~@edx/brand/paragon/fonts.scss";
-// @import "~@edx/brand/paragon/variables.scss";
-// @import "~@openedx/paragon/scss/core/core.scss";
-// @import "~@edx/brand/paragon/overrides.scss";
-// $fa-font-path: "~font-awesome/fonts";
-// @import "~font-awesome/scss/font-awesome";
-
 @use "@openedx/paragon/styles/css/core/custom-media-breakpoints" as paragonCustomMediaBreakpoints;
+
 
 @import "~@edx/frontend-component-footer/dist/footer";
 @import "~@edx/frontend-component-header/dist/index";
 
 
-$font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-$font-family-base: $font-family-sans-serif;
-// Global font-family applied to all elements
-html,
 body,
 #main
 {
-  // font-size: 14px ;
-  font-family: $font-family-sans-serif;
+  font-size: 14px ;
 }
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+.btn,
+.form-control,
+.dropdown-menu,
+.pgn__modal,
+.pgn__form-control-floating-label-content,
+.pgn__form-label {
+  font-size: 14px !important;
 }
 
-html, body.new-ui {
-  overflow: hidden !important; /* Prevent outer scrollbar for new UI */
+.btn-md {
+  font-size: 16px !important;
 }
 
 .btn-plain {
     background-color: var(--pgn-color-card-bg-base) !important;
 }
-
-/* Allow scrolling for old UI */
-html, body.old-ui {
-  overflow: auto !important; /* Allow scrolling for old UI */
-}
-
-html.old-ui {
-  overflow: auto !important; /* Allow scrolling for old UI */
-}
-
-html.new-ui {
-  overflow: hidden !important; /* Prevent outer scrollbar for new UI */
-
-  body {
-    font-family: Inter, sans-serif !important;
-  }
-}
-
-
-// .btn,
-// .form-control,
-// .dropdown-menu,
-// .pgn__modal,
-// .pgn__form-control-floating-label-content,
-// .pgn__form-label {
-//   font-size: 14px;
-// }
-
-// .btn-md {
-//   font-size: 16px;
-// }
 
 #post,
 #comment,
@@ -259,15 +219,15 @@ html.new-ui {
   margin-left: 17px;
 }
 
-// header {
-//   .logo {
-//     margin-right: 1rem;
+header {
+  .logo {
+    margin-right: 1rem;
 
-//     img {
-//       height: 1.75rem;
-//     }
-//   }
-// }
+    img {
+      height: 1.75rem;
+    }
+  }
+}
 
 #learner-posts-link {
   span[role=heading]:hover {
@@ -741,126 +701,150 @@ th, td {
   }
 }
 
-.app-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  overflow: hidden;
-}
+// In-context sidebar (learning MFE): with no posts, stack the empty post list
+// and the "Nothing here yet / Add a post" state instead of splitting the width.
+.frame-container-in-context .d-flex.flex-row.position-relative:has(> .min-content-height) {
+  flex-direction: column !important; // beats the .flex-row utility
 
-.content-wrapper {
-  display: flex;
-  flex: 1;
-  min-height: 0;
-  flex-grow: 1;
-  overflow: hidden;
-}
+  > .flex-column.position-sticky {
+    width: 100% !important;
+    min-height: 0 !important;
+    height: auto !important;
+    box-shadow: none !important;
+  }
 
-.main-content {
-  flex: 1;
-  // padding: 20px;
-  padding-left: 0px;
-  padding-bottom: 0px;
-  padding-top: 0;
-  box-sizing: border-box;
-  overflow-y: auto;
-  height: calc(100vh - 100px);
-  background-color: var(--bg-body);
+  // Compact empty state so "Add a post" is visible in the tray.
+  > .min-content-height {
+    min-height: 0 !important;
+    justify-content: flex-start !important;
+    padding: var(--pgn-spacing-spacer-4) var(--pgn-spacing-spacer-3);
 
-  .page-content {
-    flex-grow: 1;
+    svg {
+      max-width: 9rem;
+      height: auto;
+    }
   }
 }
 
-.pgn-btn-active {
-  color: #454545;
-  background-color: #E1DDDB;
-  border-color: transparent;
-}
+// ---------------------------------------------------------------------------
+// In-context sidebar (learning MFE tray, ~455px wide): standard spacing.
+.frame-container-in-context {
+  // Header: "Add a post" sits inside the bar (it was full bar height, so its
+  // border/focus ring was clipped by the bar).
+  .header-action-bar .navbar {
+    align-items: center;
+    padding-left: var(--pgn-spacing-spacer-3) !important;
+    padding-right: var(--pgn-spacing-spacer-2) !important;
 
-.btn-tertiary:focus::before {
-  border: solid 2px transparent;
-}
+    .btn-plain {
+      align-self: center;
+      height: auto;
+      padding: var(--pgn-spacing-spacer-1) var(--pgn-spacing-spacer-3) !important;
+      line-height: var(--pgn-typography-line-height-base);
+      border-radius: var(--pgn-size-btn-border-radius-base);
+      white-space: nowrap;
+    }
+  }
 
-.sidebar-container {
-  overflow-y: auto;
-  flex-shrink: 0;
-  overflow-x: hidden;
-  height: calc(100vh - 0px);
+  // Add/edit post: no grey band around the form, form fills the tray.
+  .bg-light-400:has(> .d-flex > .post-form),
+  .bg-light-400:has(.post-form) {
+    width: 100% !important;
+    background-color: transparent !important;
+  }
 
-  @media (max-height: 690px) {
-    height: calc(100vh - 5rem);
+  .post-form {
+    margin: var(--pgn-spacing-spacer-3) !important;
+    padding: var(--pgn-spacing-spacer-3) !important;
+
+    > h4 {
+      margin-bottom: var(--pgn-spacing-spacer-3) !important;
+    }
+
+    // Discussion / Question: one row, equal halves.
+    .pgn__form-control-set {
+      flex-wrap: nowrap !important;
+      gap: var(--pgn-spacing-spacer-3);
+
+      > label {
+        flex: 1 1 0;
+        min-width: 0;
+        margin-right: 0 !important;
+
+        .card {
+          width: 100%;
+        }
+
+        .pgn__card-section {
+          padding: var(--pgn-spacing-spacer-3) var(--pgn-spacing-spacer-2) !important;
+        }
+
+        .text-gray-700 {
+          white-space: nowrap;
+        }
+      }
+    }
+
+    // Notify / Follow checkboxes + Show preview: one aligned row (stock
+    // w-75 squeezed the labels onto two lines).
+    .mt-n4.w-75:has(.pgn__form-checkbox) {
+      width: 100% !important;
+      margin-top: 0 !important;
+      margin-bottom: var(--pgn-spacing-spacer-3) !important;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--pgn-spacing-spacer-2) var(--pgn-spacing-spacer-3);
+
+      .pgn__form-checkbox,
+      .pgn__form-label {
+        white-space: nowrap;
+        margin-right: 0 !important;
+      }
+
+      // Wrapped rows (narrow screens) keep the standard small gap only.
+      .pgn__form-group,
+      .pgn__form-checkbox {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+      }
+    }
+
+    :has(> .mt-n4.w-75 .pgn__form-checkbox) {
+      align-items: center !important;
+    }
+
+    .my-4\.5 {
+      margin-top: var(--pgn-spacing-spacer-4) !important;
+      margin-bottom: var(--pgn-spacing-spacer-4) !important;
+    }
   }
 }
 
-/* Styles for the sidebar scrollbar */
-.sidebar-container::-webkit-scrollbar {
-  width: 4px; /* width of the vertical scrollbar */
-  z-index: 10;
-}
-
-.sidebar-container::-webkit-scrollbar-track {
-  background: transparent; /* color of the track */
-}
-
-.sidebar-container::-webkit-scrollbar-thumb {
-  background-color: #888; /* color of the scrollbar thumb */
-  border-radius: 4px; /* roundness of the scrollbar thumb */
-}
-
-.sidebar-container::-webkit-scrollbar-thumb:hover {
-  background-color: #555; /* color of the scrollbar thumb on hover */
-}
-
-/* UI Switch Button Styles */
-.ui-switch-button {
-  position: absolute;
-  top: 2rem !important;
-  // transform: translateY(-50%);
-  border-radius: 6px;
-  z-index: 9999;
-  background-color: var(--primary);
-  color: white;
-  padding: 8px 12px;
-  text-align: center;
-  font-size: 14px;
-  font-weight: bold;
-  width: fit-content;
-  border: none;
-  cursor: pointer;
-  white-space: nowrap;
- 
-  /* Use left positioning to stay consistent relative to header content */
-  left: 50%;
-  transform: translateY(-50%) translateX(-50px);
-  /* Center horizontally, then move right towards search icon */
- 
-  /* Responsive adjustments - move right more as screen gets bigger */
-  @media (min-width: 680px) {
-    transform: translateY(-50%) translateX(0px);
-  }
- 
-  @media (min-width: 841px) {
-    transform: translateY(-50%) translateX(115px);
-  }
- 
-  @media (min-width: 841px) and (max-width:920px) {
-    padding: 6px 4px;
-    font-size: 12px;
-  }
- 
-  @media (min-width: 1440px) {
-    transform: translateY(-50%) translateX(100px);
-  }
- 
-  @media (min-width: 1920px) {
-    transform: translateY(-50%) translateX(150px);
-  }
- 
-  /* Fallback for very small screens */
-  @media (max-width: 480px) {
-    transform: translateY(-50%) translateX(-80px);
-    font-size: 12px;
-    padding: 6px 10px;
-  }
+// In-context sidebar: TitanEd overrides use --primary etc. (e.g.
+// `.btn-primary { background-color: var(--primary) }`). The full-page shell
+// maps them to design tokens via .tels-custom-discussions; the sidebar has no
+// shell, so map the same variables here (existing --pgn-* tokens only).
+// Scoped to the whole frame document so body-level portals (TinyMCE dialogs,
+// modals, dropdown menus) get them too.
+html:has(.frame-container-in-context),
+.frame-container-in-context {
+  --primary: var(--pgn-color-primary-base);
+  --primary-alt: var(--pgn-color-primary-700);
+  --primary-hover: var(--pgn-color-primary-300);
+  --primary-active: var(--pgn-color-primary-800);
+  --primary-light: var(--pgn-color-primary-light);
+  --secondary: var(--pgn-color-secondary-base);
+  --secondary-hover: var(--pgn-color-primary-light);
+  --secondary-light: var(--pgn-color-primary-light);
+  --bg-body: var(--pgn-color-bg-base);
+  --bg-surface: var(--pgn-color-bg-base);
+  --border-color: var(--pgn-color-light-400);
+  --text-primary: var(--pgn-color-text-base);
+  --text-secondary: var(--pgn-color-text-light);
+  --text-muted: var(--pgn-color-text-light);
+  --text-white: var(--pgn-color-white);
+  --disabled: var(--pgn-color-gray-300);
+  --danger: var(--pgn-color-danger-base);
+  font-family: var(--pgn-typography-font-family-base);
+  color: var(--pgn-color-body-base);
 }
