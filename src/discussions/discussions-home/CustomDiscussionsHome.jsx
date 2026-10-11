@@ -2,7 +2,6 @@ import React, {
   lazy, Suspense, useMemo, useRef,
 } from 'react';
 
-import { PluginSlot } from '@openedx/frontend-plugin-framework';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
 import {
@@ -12,6 +11,7 @@ import {
 import { Spinner } from '../../components';
 import selectCourseTabs from '../../components/NavigationBar/data/selectors';
 import { ALL_ROUTES, DiscussionProvider, Routes as ROUTES } from '../../data/constants';
+import CustomCourseHeader from '../../components/Head/CustomCourseHeader';
 import DiscussionContext from '../common/context';
 import ContentUnavailable from '../content-unavailable/ContentUnavailable';
 import {
@@ -26,9 +26,9 @@ import { selectPostEditorVisible } from '../posts/data/selectors';
 import { isCourseStatusValid } from '../utils';
 import useFeedbackWrapper from './FeedbackWrapper';
 
-const PostActionsBar = lazy(() => import('../posts/post-actions-bar/PostActionsBar'));
+const CustomPostActionsBar = lazy(() => import('../posts/post-actions-bar/CustomPostActionsBar'));
 const DiscussionsConfirmEmailBanner = lazy(() => import('./DiscussionsConfirmEmailBanner'));
-const CourseTabsNavigation = lazy(() => import('../../components/NavigationBar/CourseTabsNavigation'));
+const CustomCourseTabsNavigation = lazy(() => import('../../components/NavigationBar/CustomCourseTabsNavigation'));
 const LegacyBreadcrumbMenu = lazy(() => import('../navigation/breadcrumb-menu/LegacyBreadcrumbMenu'));
 const NavigationBar = lazy(() => import('../navigation/navigation-bar/NavigationBar'));
 const DiscussionsProductTour = lazy(() => import('../tours/DiscussionsProductTour'));
@@ -42,9 +42,7 @@ const CustomDiscussionsHome = () => {
   const postEditorVisible = useSelector(selectPostEditorVisible);
   const provider = useSelector(selectDiscussionProvider);
   const enableInContext = useSelector(selectEnableInContext);
-  const {
-    courseNumber, courseTitle, org, courseStatus, isEnrolled,
-  } = useSelector(selectCourseTabs);
+  const { courseTitle, courseStatus, isEnrolled } = useSelector(selectCourseTabs);
   const isUserLearner = useSelector(selectIsUserLearner);
   const pageParams = useMatch(ROUTES.COMMENTS.PAGE)?.params;
   const page = pageParams?.page || null;
@@ -82,14 +80,9 @@ const CustomDiscussionsHome = () => {
     <Suspense fallback={(<Spinner />)}>
       <DiscussionContext.Provider value={discussionContextValue}>
         {!enableInContextSidebar && <DiscussionsConfirmEmailBanner />}
-        <PluginSlot
-          id="course_header_plugin_slot"
-          pluginProps={{
-            courseTitle,
-          }}
-        />
+        {!enableInContextSidebar && <CustomCourseHeader courseTitle={courseTitle} />}
         <main className="container-xl container-fluid d-flex flex-column w-100 font-size" id="main" tabIndex="-1">
-          {!enableInContextSidebar && <CourseTabsNavigation />}
+          {!enableInContextSidebar && <CustomCourseTabsNavigation />}
           <div className={`discussions-styles ${enableInContextSidebar ? 'custom-discussions-home-container-frame' : ''}`}>
             {(isEnrolled || !isUserLearner) && (
             <div
@@ -103,7 +96,7 @@ const CustomDiscussionsHome = () => {
               })}
               >
                 {!enableInContextSidebar && (<NavigationBar />)}
-                <PostActionsBar />
+                <CustomPostActionsBar />
               </div>
               <DiscussionsRestrictionBanner />
             </div>

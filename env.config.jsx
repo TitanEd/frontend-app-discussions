@@ -5,51 +5,25 @@ import {
   PLUGIN_OPERATIONS,
 } from '@openedx/frontend-plugin-framework';
 
-import CourseHeader from './src/components/Head/CourseHeader';
-import CustomCourseTabsNavigation from './src/components/NavigationBar/CustomCourseTabsNavigation';
-import CustomDiscussionsHome from './src/discussions/discussions-home/CustomDiscussionsHome';
+import CustomLayout from './src/CustomLayout';
 
 const getPluginSlots = () => {
-  if (typeof window !== 'undefined' && localStorage.getItem('oldUI') === 'true') {
-    return {};
-  }
-
   return {
-    course_header_plugin_slot: {
+    // Replaces the stock discussions home (src/index.jsx) with the custom UI.
+    app_layout_plugin_slot: {
+      keepDefault: false,
       plugins: [
         {
-          op: PLUGIN_OPERATIONS.Insert,
-          widget: {
-            id: 'course_header_plugin_slot',
-            type: DIRECT_PLUGIN,
-            priority: 1,
-            RenderWidget: (props) => <CourseHeader {...props} />,
-          },
+          op: PLUGIN_OPERATIONS.Hide,
+          widgetId: 'default_contents',
         },
-      ],
-    },
-    course_tab_navigation_plugin_slot: {
-      plugins: [
         {
           op: PLUGIN_OPERATIONS.Insert,
           widget: {
-            id: 'course_tab_navigation_plugin_slot',
+            id: 'custom_app_layout',
             type: DIRECT_PLUGIN,
             priority: 1,
-            RenderWidget: (props) => <CustomCourseTabsNavigation {...props} />,
-          },
-        },
-      ],
-    },
-    discussions_home_plugin_slot: {
-      plugins: [
-        {
-          op: PLUGIN_OPERATIONS.Insert,
-          widget: {
-            id: 'discussions_home_plugin_slot',
-            type: DIRECT_PLUGIN,
-            priority: 1,
-            RenderWidget: (props) => <CustomDiscussionsHome {...props} />,
+            RenderWidget: () => <CustomLayout />,
           },
         },
       ],

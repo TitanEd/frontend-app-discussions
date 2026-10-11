@@ -1,9 +1,26 @@
-// Course Tabs Navigation Styles
+// Course Tabs Navigation Styles — Learning custom UI (pill track + selected chip).
 .course-tabs-navigation {
-  background-color: #E6EDFF;
   font-weight: 400;
-  border-radius: 4px;
   margin-bottom: 1.5rem !important;
+  border-bottom: none;
+  border-radius: var(--pgn-size-border-radius-base, 4px);
+  background-color: color-mix(in srgb, var(--pgn-color-primary-base) 12%, var(--pgn-color-bg-base));
+
+  > .container-xl {
+    background-color: transparent;
+    border-radius: 0;
+    max-width: none !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .nav-menu {
+    padding: 0.5rem 0;
+    margin-left: 0;
+  }
 
   .nav a {
     &:not(.active):hover {
@@ -13,25 +30,32 @@
 }
 
 .nav-underline-tabs .nav-link.active {
-  background-color: #FFFFFF;
+  background-color: var(--pgn-color-bg-base);
   border-bottom: none;
+  border-bottom-color: transparent !important;
   border-radius: 0.5rem;
   font-weight: 600;
-  color: var(--primary) !important;
+  color: var(--primary, var(--pgn-color-primary-base)) !important;
 }
 
-.nav-underline-tabs .nav-link:hover {
-  color: var(--primary) !important;
-}
-
-.nav-underline-tabs .nav-link:focus {
-  color: var(--primary) !important;
+.nav-underline-tabs .nav-link {
+  color: var(--primary, var(--pgn-color-primary-base)) !important;
   border-bottom-color: transparent !important;
+  padding: 0.5rem 1rem !important;
+  margin: 0 !important;
+
+  &:hover,
+  &:focus {
+    color: var(--primary, var(--pgn-color-primary-base)) !important;
+    border-bottom-color: transparent !important;
+    background-color: transparent !important;
+    border-radius: 0.5rem;
+  }
 }
 
 .nav-menu {
   padding: 0.5rem 0;
-  margin-left: -4px;
+  margin-left: 0;
 }
 
 /* Breadcrumb and Title styles */
@@ -46,7 +70,7 @@
 }
 
 .ca-breadcrumb {
-  color: #b0b7c3;
+  color: var(--pgn-color-text-muted);
   font-size: 14px;
   margin-bottom: 8px;
 }
@@ -66,13 +90,13 @@
 }
 
 .ca-breadcrumb .ca-breadcrumb-current {
-  color: #6b7280;
+  color: var(--pgn-color-text-muted);
 }
 
 .ca-title {
   font-weight: 600;
   font-size: 20px;
-  color: #22223b;
+  color: var(--pgn-color-text-base);
 }
 
 /* Main layout styles */
@@ -119,16 +143,16 @@
   padding: 16px;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--pgn-color-light-400);
 }
 
 .ca-mobile-nav-select {
   width: 100%;
   padding: 12px;
   font-size: 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--pgn-color-light-400);
   border-radius: 8px;
-  background-color: white;
+  background-color: var(--pgn-color-surface-base);
 
   /* Remove default arrow and add a custom one with spacing */
   -webkit-appearance: none;
@@ -171,8 +195,8 @@
 }
 
 .discussions-styles {
-  background-color: #FFFFFF;
-  border: 1px solid #E5E6E6;
+  background-color: var(--pgn-color-surface-base);
+  border: 1px solid var(--pgn-color-light-400);
   border-radius: 1rem;
   padding-bottom: 1rem;
   margin-bottom: 1rem;
@@ -213,7 +237,7 @@
 }
 
 .pgn__searchfield {
-  border: 1px solid #E0E0E0 !important;
+  border: 1px solid var(--pgn-color-light-400) !important;
 }
 
 .pgn__searchfield .pgn__searchfield-form {
@@ -233,7 +257,7 @@
   }
 
   .bg-light-400 {
-    background-color: #FFFFFF !important;
+    background-color: var(--pgn-color-surface-base) !important;
   }
 }
 
@@ -262,7 +286,7 @@
 
   &:hover {
     background-color: var(--primary) !important;
-    color: white !important;
+    color: var(--pgn-color-white) !important;
   }
 }
 
@@ -359,5 +383,111 @@
 }
 
 .nav-button-group .nav-link.active {
-  color: white !important;
+  color: var(--pgn-color-white) !important;
+}
+
+// ---------------------------------------------------------------------------
+// Custom UI shapes and sizes from the design tokens (--pgn-*).
+.tels-custom-discussions {
+  // Shapes and sizes: titaned-frontend-library hardcodes these for Paragon /
+  // Bootstrap components (e.g. 1rem radios against Paragon's 20px min-width,
+  // which drew them as ovals). Use the design tokens instead.
+  .pgn__form-checkbox-input,
+  .pgn__form-radio-input {
+    width: var(--pgn-size-form-control-indicator-base);
+    height: var(--pgn-size-form-control-indicator-base);
+    min-width: var(--pgn-size-form-control-indicator-base);
+    min-height: var(--pgn-size-form-control-indicator-base);
+    flex-shrink: 0;
+  }
+
+  .pgn__form-radio-input {
+    border-radius: 50%;
+  }
+
+  // Focused/selected Paragon Menu item: brand tint from the existing
+  // primary-light token (the menu token keeps its Paragon default).
+  .pgn__menu-item:focus {
+    background-color: var(--pgn-color-primary-light);
+  }
+
+  // Indicator centered on its label (Paragon offsets it with a fixed
+  // margin-top, which drifts when the label font/line-height changes).
+  // Options with a description keep the top alignment.
+  .pgn__form-checkbox:not(:has(.pgn__form-control-description)),
+  .pgn__form-radio:not(:has(.pgn__form-control-description)) {
+    display: flex;
+    align-items: center;
+
+    > .pgn__form-checkbox-input,
+    > .pgn__form-radio-input {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .pgn__form-label {
+      margin-bottom: 0;
+    }
+  }
+
+  // Page content and modals only: the header/sidebar keep their own shapes
+  // (pill language selector, user menu).
+  .main-content,
+  .pgn__modal-layer {
+    .btn:not(.btn-icon) {
+      border-radius: var(--pgn-size-btn-border-radius-base) !important;
+    }
+
+    .btn-sm:not(.btn-icon) {
+      border-radius: var(--pgn-size-btn-border-radius-sm) !important;
+    }
+
+    .btn-lg:not(.btn-icon) {
+      border-radius: var(--pgn-size-btn-border-radius-lg) !important;
+    }
+
+    // Button groups stay joined (only the outer corners are rounded).
+    .btn-group > .btn:not(:last-child):not(.dropdown-toggle):not(.btn-icon),
+    .btn-group > .btn-group:not(:last-child) > .btn:not(.btn-icon) {
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+    }
+
+    .btn-group > .btn:not(:first-child):not(.btn-icon),
+    .btn-group > .btn-group:not(:first-child) > .btn:not(.btn-icon) {
+      border-top-left-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+    }
+
+    .form-control,
+    .pgn__form-control-decorator-group .form-control {
+      border-radius: var(--pgn-size-form-input-radius-border-base);
+    }
+
+    .card,
+    .pgn__card {
+      border-radius: var(--pgn-size-card-border-radius-base);
+    }
+
+    .badge {
+      border-radius: var(--pgn-size-badge-border-radius-base);
+    }
+
+    .alert {
+      border-radius: var(--pgn-size-alert-border-radius);
+    }
+
+    .dropdown-menu {
+      border-radius: var(--pgn-size-dropdown-border-radius-base);
+    }
+
+    .modal-content,
+    .pgn__modal {
+      border-radius: var(--pgn-size-modal-content-border-radius);
+    }
+
+    .pgn__selectable_box {
+      border-radius: var(--pgn-size-border-radius-base);
+    }
+  }
 }
