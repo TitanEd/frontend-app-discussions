@@ -50,9 +50,10 @@ pull_translations:
 	           translations/frontend-component-footer/src/i18n/messages:frontend-component-footer \
 	           translations/frontend-platform/src/i18n/messages:frontend-platform \
 	           translations/paragon/src/i18n/messages:paragon \
+	           translations/frontend-plugin-notifications/src/i18n/messages:frontend-plugin-notifications \
 	           translations/frontend-app-discussions/src/i18n/messages:frontend-app-discussions
 
-	$(intl_imports) frontend-component-header frontend-component-footer frontend-platform paragon frontend-app-discussions
+	$(intl_imports) frontend-plugin-notifications frontend-component-header frontend-component-footer frontend-platform paragon frontend-app-discussions
 # endif
 
 # This target is used by Travis.
