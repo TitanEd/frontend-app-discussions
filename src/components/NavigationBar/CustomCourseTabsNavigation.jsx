@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
@@ -6,13 +6,15 @@ import { useSelector } from 'react-redux';
 import { useIntl } from '@edx/frontend-platform/i18n';
 
 import CustomTabs from './tabs/CustomTabs';
+import { withCustomTabs } from './customCourseTabs';
 import messages from './messages';
 
 import './navBar.scss';
 
 const CustomCourseTabsNavigation = () => {
   const intl = useIntl();
-  const tabs = useSelector(state => state.courseTabs.tabs);
+  const backendTabs = useSelector(state => state.courseTabs.tabs);
+  const tabs = useMemo(() => withCustomTabs(backendTabs, intl), [backendTabs, intl]);
 
   return (
     <div id="courseTabsNavigation" className="mb-3 course-tabs-navigation">
